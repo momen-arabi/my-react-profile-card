@@ -110,7 +110,7 @@ function Intro() {
 }
 
 function Skill({ back, color, text, level }) {
-  let emoji = levelEmojis.find((emoji) => emoji.level == level).emoji;
+  let emoji = levelEmojis.find((emoji) => emoji.level === level).emoji;
   return (
     <div
       className="skill"
