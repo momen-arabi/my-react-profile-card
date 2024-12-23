@@ -6,37 +6,57 @@ const skillSet = [
   {
     id: "1",
     skill: "HTML+CSS",
-    emoji: "🌐",
+    level: "advanced",
   },
   {
     id: "2",
     skill: "Javascript",
-    emoji: "⚡️",
+    level: "advanced",
   },
   {
     id: "3",
     skill: "jQuery",
-    emoji: "💡",
+    level: "advanced",
   },
   {
     id: "4",
     skill: "React JS",
-    emoji: "⚛️",
+    level: "beginner",
   },
   {
     id: "5",
-    skill: "Node Js",
-    emoji: "🌳",
+    skill: "Next JS",
+    level: "beginner",
   },
   {
     id: "6",
-    skill: "Express Js",
-    emoji: "🚀",
+    skill: "Node Js",
+    level: "intermediate",
   },
   {
     id: "7",
-    skill: "Mongo DB",
-    emoji: "🍃",
+    skill: "Express Js",
+    level: "intermediate",
+  },
+  {
+    id: "8",
+    skill: "Mongoose",
+    level: "intermediate",
+  },
+];
+
+const levelEmojis = [
+  {
+    level: "beginner",
+    emoji: "👶",
+  },
+  {
+    level: "intermediate",
+    emoji: "👍",
+  },
+  {
+    level: "advanced",
+    emoji: "💪",
   },
 ];
 
@@ -47,9 +67,7 @@ function randomColorWithContrast() {
   const b = Math.floor(Math.random() * 256);
 
   // convert RGB to hex
-  const hexColor = `#${r.toString(16).padStart(2, "0")}${g
-    .toString(16)
-    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`.toUpperCase();
+  const hexColor = `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`.toUpperCase();
 
   // calculate luminance (perceived brightness)
   const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
@@ -84,25 +102,25 @@ function Intro() {
     <div>
       <h1>Momen Ahmed Arabi</h1>
       <p>
-        Full-stack web developer with a background in civil engineering,
-        specializing in creating dynamic and responsive websites using modern
+        Full-stack web developer with a background in civil engineering, specializing in creating dynamic and responsive websites using modern
         technologies, and committed to continuous growth in the tech industry.
       </p>
     </div>
   );
 }
 
-function Skill(props) {
+function Skill({ back, color, text, level }) {
+  let emoji = levelEmojis.find((emoji) => emoji.level == level).emoji;
   return (
     <div
       className="skill"
       style={{
-        backgroundColor: props.back,
-        color: props.color,
+        backgroundColor: back,
+        color,
       }}
     >
-      <span>{props.text}</span>
-      <span>{props.emoji}</span>
+      <span>{text}</span>
+      <span>{emoji}</span>
     </div>
   );
 }
@@ -112,14 +130,7 @@ function SkillList() {
     <div className="skill-list">
       {skillSet.map((skill) => {
         let skillColor = randomColorWithContrast();
-        return (
-          <Skill
-            back={skillColor.backgroundColor}
-            color={skillColor.textColor}
-            text={skill.skill}
-            emoji={skill.emoji}
-          />
-        );
+        return <Skill back={skillColor.backgroundColor} color={skillColor.textColor} text={skill.skill} level={skill.level} />;
       })}
     </div>
   );
